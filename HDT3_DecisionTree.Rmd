@@ -1,6 +1,6 @@
 ---
 title: "HDT3_DecisionTree"
-author: "Alejandro Alvarez, "
+author: "Alejandro Alvarez, Jorge De Leon, Roberto Castillo"
 date: '2022-03-04'
 output: html_document
 ---
@@ -15,6 +15,11 @@ library("dplyr")
 library("ggplot2")
 library("httr")
 library("readr")
+library(rpart)
+library(caret)
+library(randomForest)
+library(tree)
+library(rpart.plot)
 ```
 
 Importación del set de datos a partir del .csv
@@ -24,6 +29,12 @@ house <- read.csv("./train.csv", stringsAsFactors = F)
 
 
 ##----Exploración del Set de datos##----##
+
+Resumen del set de datos
+```{r}
+summary(house)
+```
+
 
 Se crea un conteo de columnas y observaciones (filas) del conjunto de datos
 ```{r}
@@ -51,8 +62,28 @@ print(as_tibble(byneighborhood), n = 25)
 ```
 
 
-
+Ventas por año ordenados de mayor a menor, siendo el año con mayor ventas 2009
 ```{r}
+yearly <- house %>% group_by(house$YrSold) %>% summarise(freq=n()) %>% ungroup()
+yearly <- arrange(yearly, desc(yearly$freq))
+print(as_tibble(yearly), n = 10)
+```
+Ventas según la condición de la vivienda. Habiendo una diferencia significativa con una tendencia de inclinación a las de condición intermedia (5).
+```{r}
+conditions <- house %>% group_by(house$OverallCond) %>% summarise(freq=n()) %>% ungroup()
+conditions <- arrange(conditions, desc(conditions$freq))
+print(as_tibble(conditions), n = 10)
+```
 
+Gráfico de ventas por año y ventas anuales segun condición de la vivienda. Se puede observar que hay una consistencia en el número de ventas anuales de viviendas, con un descenso en el año 2010. Adicionalmente, pudimos confirmar que en efecto las casas de condición intermedia (5) fueron las más vendidas a través de los años.
+```{r}
+counts0 <- table(house$YrSold)
+barplot(counts0, main="Sales Distribution",
+   xlab="Year of Sell")
+
+counts <- table(house$YrSold, house$OverallCond)
+barplot(counts, main="House Condition and Year of Sell",
+  xlab="House Condition", col=c("darkblue","red", "yellow", "cyan", "green"),
+  legend = rownames(counts), beside=TRUE)
 ```
 
