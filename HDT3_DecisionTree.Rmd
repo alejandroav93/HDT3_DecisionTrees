@@ -20,6 +20,7 @@ library(caret)
 library(randomForest)
 library(tree)
 library(rpart.plot)
+library(car)
 ```
 
 Importación del set de datos a partir del .csv
@@ -166,5 +167,20 @@ barplot(counts, main="House Condition and Year of Sell",
   xlab="House Condition", col=c("darkblue","red", "yellow", "cyan", "green"),
   legend = rownames(counts), beside=TRUE)
 ```
+
+Planteamiento de pregunta: La calidad de la casa tiene alguna correlación con el precio de venta?  Observando el gráfico de dispersion podemos observar que no existe tal relación y que la decisión es influida por otros factores
+```{r}
+scatterplot(house$SalePrice ~  house$OverallQual, data = house, smoother = FALSE, grid = FALSE, frame = FALSE)
+```
+
+Planteamiento de pregunta: La condición tiene alguna correlación con el precio de venta? Observando el gráfico de dispersion podemos observar que no existe tal relación y que la decisión es influida por otros factores
+```{r}
+scatterplot(house$SalePrice ~  house$OverallCond, data = house, smoother = FALSE, grid = FALSE, frame = FALSE)
+```
+División de los cuartiles en precios de venta de las casas
+```{r}
+quantile(house$SalePric)  
+```
+
 
 
