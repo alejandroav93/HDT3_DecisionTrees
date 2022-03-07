@@ -214,7 +214,62 @@ library(caret)</code></pre>
 <pre class="r"><code>library(rpart.plot)</code></pre>
 <p>Importación del set de datos a partir del .csv</p>
 <pre class="r"><code>house &lt;- read.csv(&quot;./train.csv&quot;, stringsAsFactors = F)</code></pre>
-<p>##—-Exploración del Set de datos##—-##</p>
+<p>##—CLASIFICACION DE VARIABLES—## “” Id -&gt; Variable continua MSSubClass -&gt; Variable continua MSZoning -&gt; Variable categórica  LotFrontage -&gt; Variable continua<br />
+LotArea -&gt; Variable discreta Street -&gt; Variable categórica<br />
+Alley -&gt; Variable categórica<br />
+LotShape -&gt; Variable categórica<br />
+LandContour -&gt; Variable categórica<br />
+Utilities -&gt; Variable categórica<br />
+LotConfig -&gt; Variable categórica<br />
+LandSlope -&gt; Variable categórica<br />
+Neighborhood -&gt; Variable categórica<br />
+Condition1 -&gt; Variable categórica<br />
+Condition2 -&gt; Variable categórica<br />
+BldgType -&gt; Variable categórica<br />
+HouseStyle -&gt; Variable categórica<br />
+OverallQual -&gt; Variable continua<br />
+OverallCond -&gt; Variable continua<br />
+YearBuilt -&gt; Variable discreta<br />
+YearRemodAdd -&gt; Variable discreta<br />
+RoofStyle -&gt; Variable categórica<br />
+RoofMatl -&gt; Variable categórica<br />
+Exterior1st -&gt; Variable categórica Exterior2nd -&gt; Variable categórica<br />
+MasVnrType -&gt; Variable categórica<br />
+MasVnrArea -&gt; Variable discreta<br />
+ExterQual -&gt; Variable categórica<br />
+ExterCond -&gt; Variable categórica<br />
+Foundation -&gt; Variable categórica<br />
+BsmtQual -&gt; Variable categórica<br />
+BsmtCond -&gt; Variable categórica<br />
+BsmtExposure -&gt; Variable categórica<br />
+BsmtFinType1 -&gt; Variable categórica<br />
+BsmtFinSF1 -&gt; Variable discreta<br />
+BsmtFinType2 -&gt; Variable categórica<br />
+BsmtFinSF2 -&gt; Variable discreta<br />
+BsmtUnfSF -&gt; Variable discreta<br />
+TotalBsmtSF -&gt; Variable discreta<br />
+Heating -&gt; Variable categórica<br />
+HeatingQC -&gt; Variable categórica<br />
+CentralAir -&gt; Variable categórica<br />
+Electrical -&gt; Variable categórica<br />
+1stFlrSF -&gt; Variable continua 2ndFlrSF -&gt; Variable continua LowQualFinSF -&gt; Variable continua GrLivArea -&gt; Variable discreta BsmtFullBath -&gt; Variable continua BsmtHalfBath-&gt; Variable continua FullBath -&gt; Variable continua HalfBath -&gt; Variable continua<br />
+Bedroom -&gt; Variable continua Kitchen -&gt; Variable continua KitchenQual -&gt; Variable categórica<br />
+TotRmsAbvGrd -&gt; Variable discreta<br />
+Functional -&gt; Variable categórica<br />
+Fireplaces -&gt; Variable discreta<br />
+FireplaceQu -&gt; Variable categórica<br />
+GarageType -&gt; Variable categórica<br />
+GarageYrBlt -&gt; Variable discreta GarageFinish -&gt; Variable categórica<br />
+GarageCars -&gt; Variable continua GarageArea -&gt; Variable continua GarageQual -&gt; Variable categórica<br />
+GarageCond -&gt; Variable categórica<br />
+PavedDrive -&gt; Variable categórica<br />
+WoodDeckSF -&gt; Variable continua OpenPorchSF -&gt; Variable continua EnclosedPorch -&gt; Variable continua 3SsnPorch -&gt; Variable continua ScreenPorch -&gt; Variable continua PoolArea -&gt; Variable continua PoolQC -&gt; Variable categórica<br />
+Fence -&gt; Variable categórica<br />
+MiscFeature -&gt; Variable categórica<br />
+MiscVal -&gt; Variable continua MoSold -&gt; Variable discreta YrSold -&gt; Variable discreta SaleType -&gt; Variable categórica<br />
+SaleCondition -&gt; Variable categórica<br />
+SalePrice -&gt; Variable discreta<br />
+##—-Exploración del Set de datos##—-##</p>
 <p>Resumen del set de datos</p>
 <pre class="r"><code>summary(house)</code></pre>
 <pre><code>##        Id           MSSubClass      MSZoning          LotFrontage    

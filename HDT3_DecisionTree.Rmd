@@ -26,9 +26,89 @@ Importación del set de datos a partir del .csv
 ```{r importación de base de datos}
 house <- read.csv("./train.csv", stringsAsFactors = F)
 ```
-
-
-##----Exploración del Set de datos##----##
+##---CLASIFICACION DE VARIABLES---##
+Id -> Variable continu
+MSSubClass -> Variable continua
+MSZoning -> Variable categórica   
+LotFrontage -> Variable continua     
+LotArea -> Variable discreta
+Street -> Variable categórica        
+Alley -> Variable categórica             
+LotShape -> Variable categórica          
+LandContour -> Variable categórica       
+Utilities -> Variable categórica          
+LotConfig -> Variable categórica          
+LandSlope -> Variable categórica         
+Neighborhood -> Variable categórica        
+Condition1 -> Variable categórica         
+Condition2 -> Variable categórica          
+BldgType -> Variable categórica          
+HouseStyle -> Variable categórica         
+OverallQual -> Variable continua    
+OverallCond -> Variable continua     
+YearBuilt -> Variable discreta     
+YearRemodAdd -> Variable discreta  
+RoofStyle  -> Variable categórica           
+RoofMatl -> Variable categórica          
+Exterior1st -> Variable categórica 
+Exterior2nd -> Variable categórica          
+MasVnrType -> Variable categórica           
+MasVnrArea  -> Variable discreta   
+ExterQual -> Variable categórica       
+ExterCond -> Variable categórica     
+Foundation -> Variable categórica          
+BsmtQual -> Variable categórica           
+BsmtCond -> Variable categórica         
+BsmtExposure -> Variable categórica       
+BsmtFinType1 -> Variable categórica         
+BsmtFinSF1 -> Variable discreta    
+BsmtFinType2 -> Variable categórica      
+BsmtFinSF2 -> Variable discreta       
+BsmtUnfSF -> Variable discreta      
+TotalBsmtSF -> Variable discreta      
+Heating  -> Variable categórica           
+HeatingQC -> Variable categórica  
+CentralAir -> Variable categórica  
+Electrical -> Variable categórica  
+1stFlrSF -> Variable continua 
+2ndFlrSF -> Variable continua
+LowQualFinSF -> Variable continua 
+GrLivArea -> Variable discreta
+BsmtFullBath -> Variable continua 
+BsmtHalfBath-> Variable continua 
+FullBath -> Variable continua 
+HalfBath -> Variable continua  
+Bedroom -> Variable continua
+Kitchen -> Variable continua 
+KitchenQual -> Variable categórica  
+TotRmsAbvGrd -> Variable discreta  
+Functional -> Variable categórica  
+Fireplaces -> Variable discreta  
+FireplaceQu -> Variable categórica  
+GarageType -> Variable categórica  
+GarageYrBlt -> Variable discreta 
+GarageFinish -> Variable categórica  
+GarageCars -> Variable continua
+GarageArea -> Variable continua
+GarageQual -> Variable categórica  
+GarageCond -> Variable categórica  
+PavedDrive -> Variable categórica  
+WoodDeckSF -> Variable continua
+OpenPorchSF -> Variable continua
+EnclosedPorch -> Variable continua
+3SsnPorch -> Variable continua
+ScreenPorch -> Variable continua
+PoolArea -> Variable continua
+PoolQC -> Variable categórica  
+Fence -> Variable categórica  
+MiscFeature -> Variable categórica  
+MiscVal -> Variable continua
+MoSold -> Variable discreta 
+YrSold -> Variable discreta 
+SaleType -> Variable categórica  
+SaleCondition -> Variable categórica  
+SalePrice -> Variable discreta  
+##----Exploración del Set de datos----##
 
 Resumen del set de datos
 ```{r}
@@ -86,4 +166,5 @@ barplot(counts, main="House Condition and Year of Sell",
   xlab="House Condition", col=c("darkblue","red", "yellow", "cyan", "green"),
   legend = rownames(counts), beside=TRUE)
 ```
+
 
