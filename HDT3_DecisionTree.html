@@ -474,6 +474,7 @@ print(as_tibble(yearly), n = 10)</code></pre>
 ## 3           2006   314
 ## 4           2008   304
 ## 5           2010   175</code></pre>
+<p>Ventas según la condición de la vivienda. Habiendo una diferencia significativa con una tendencia de inclinación a las de condición intermedia (5).</p>
 <pre class="r"><code>conditions &lt;- house %&gt;% group_by(house$OverallCond) %&gt;% summarise(freq=n()) %&gt;% ungroup()
 conditions &lt;- arrange(conditions, desc(conditions$freq))
 print(as_tibble(conditions), n = 10)</code></pre>
@@ -489,7 +490,7 @@ print(as_tibble(conditions), n = 10)</code></pre>
 ## 7                   9    22
 ## 8                   2     5
 ## 9                   1     1</code></pre>
-<p>Gráfico de ventas por año y ventas anuales segun condición de la vivienda</p>
+<p>Gráfico de ventas por año y ventas anuales segun condición de la vivienda. Se puede observar que hay una consistencia en el número de ventas anuales de viviendas, con un descenso en el año 2010. Adicionalmente, pudimos confirmar que en efecto las casas de condición intermedia (5) fueron las más vendidas a través de los años.</p>
 <pre class="r"><code>counts0 &lt;- table(house$YrSold)
 barplot(counts0, main=&quot;Sales Distribution&quot;,
    xlab=&quot;Year of Sell&quot;)</code></pre>
