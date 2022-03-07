@@ -1,0 +1,58 @@
+---
+title: "HDT3_DecisionTree"
+author: "Alejandro Alvarez, "
+date: '2022-03-04'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tidyverse")
+library("dplyr")
+library("ggplot2")
+library("httr")
+library("readr")
+```
+
+Importación del set de datos a partir del .csv
+```{r importación de base de datos}
+house <- read.csv("./train.csv", stringsAsFactors = F)
+```
+
+
+##Exploración del Set de datos##
+
+Se crea un conteo de columnas y observaciones (filas) del conjunto de datos
+```{r}
+#ncol count -> col variable
+col <- ncol(house)
+#Print
+cat("El número de columnas para el conjunto de datos es de :", col, "\n")
+#nrow count -> row variable
+row <- nrow(house)
+#Print
+cat("El número de observaciones para el conjunto de datos es de :", row)
+```
+
+Top 30 de casas vendidas con precios más altos (siendo la más alta de $755,000)
+```{r}
+top10 <- arrange(house, desc(house$SalePrice))
+head (select(top10, "Neighborhood", "SalePrice"),30)
+```
+
+Ventas por Areas/vecindarios ordenados de mayor a menor, siendo la de más incidencia North Ames
+```{r}
+byneighborhood <- house %>% group_by(house$Neighborhood) %>% summarise(freq=n()) %>% ungroup()
+byneighborhood <- arrange(byneighborhood, desc(byneighborhood$freq))
+print(as_tibble(byneighborhood), n = 25)
+```
+
+
+
+```{r}
+
+```
+
