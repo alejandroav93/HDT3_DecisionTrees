@@ -172,56 +172,17 @@ pre code {
 </div>
 
 
-<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.6     v dplyr   1.0.7
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(&quot;dplyr&quot;)
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;dplyr&quot;)
 library(&quot;ggplot2&quot;)
 library(&quot;httr&quot;)
 library(&quot;readr&quot;)
 library(rpart)
-library(caret)</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## 
-## Attaching package: &#39;caret&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:httr&#39;:
-## 
-##     progress</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     lift</code></pre>
-<pre class="r"><code>library(randomForest)</code></pre>
-<pre><code>## randomForest 4.7-1</code></pre>
-<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
-<pre><code>## 
-## Attaching package: &#39;randomForest&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     margin</code></pre>
-<pre class="r"><code>library(tree)</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;tree&#39;:
-##   method     from
-##   print.tree cli</code></pre>
-<pre class="r"><code>library(rpart.plot)
+library(caret)
+library(randomForest)
+library(tree)
+library(rpart.plot)
 library(car)</code></pre>
-<pre><code>## Loading required package: carData</code></pre>
-<pre><code>## 
-## Attaching package: &#39;car&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     recode</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     some</code></pre>
 <p>Importación del set de datos a partir del .csv</p>
 <pre class="r"><code>house &lt;- read.csv(&quot;./train.csv&quot;, stringsAsFactors = F)</code></pre>
 <p>##—CLASIFICACION DE VARIABLES—## Id -&gt; Variable continu MSSubClass -&gt; Variable continua MSZoning -&gt; Variable categórica<br />
