@@ -23,7 +23,7 @@ house <- read.csv("./train.csv", stringsAsFactors = F)
 ```
 
 
-##Exploración del Set de datos##
+##----Exploración del Set de datos##----##
 
 Se crea un conteo de columnas y observaciones (filas) del conjunto de datos
 ```{r}
