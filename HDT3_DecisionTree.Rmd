@@ -193,7 +193,8 @@ scatterplot(house$SalePrice ~  house$OverallCond, data = house, smoother = FALSE
 ```
 División de los cuartiles en precios de venta de las casas
 ```{r}
-quantile(house$SalePric)  
+quant <- quantile(house$SalePric)
+quant
 ```
 
 ##---CLUSTERING DE VARIABLES---##
@@ -258,6 +259,29 @@ km$size
 hc<-hclust(clusterhouse_dist, method = "ward.D2") 
 plot(hc, cex=0.5, axes=FALSE) #Genera el dendograma
 rect.hclust(hc,k=2)
+```
+
+
+```{r}
+set.seed(123)
+data <- fread("./train.csv", select = c("OverallQual","OverallCond" ,"GrLivArea", "BedroomAbvGr", "TotRmsAbvGrd", "GarageCars", "SalePrice", "YearBuilt", "LotArea", "LotFrontage"))
+data <- data %>% mutate(PriceRange = if_else(quant["0%"] <= SalePrice & SalePrice < quant["25%"], "Economica", 
+                                              if_else(quant["25%"] <= SalePrice & SalePrice < quant["50%"], "Intermedia", "Cara") ))
+data$SalePrice <- NULL
+
+trainRowsNumber <- sample(1:nrow(data), 0.7*nrow(data))
+train<-data[trainRowsNumber,]
+test<-data[-trainRowsNumber,]
+arbolModelo <- rpart(data,method = "class")
+rpart.plot(arbolModelo)
+```
+```{r}
+save(train,test,arbolModelo, file = "Variables.RData")
+load("Variables.RData")
+dt_model<-rpart(train,method = "class")
+plot(dt_model);text(dt_model)
+prp(dt_model)
+rpart.plot(dt_model)
 ```
 
 
