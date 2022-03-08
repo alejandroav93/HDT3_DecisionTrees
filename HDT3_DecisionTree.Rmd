@@ -207,7 +207,7 @@ Variables seleccionadas para agrupación:
 *SalePrice
 *YearBuilt
 *LotArea
-*LotFrontage        
+        
 
 
 Se calcula el valor del estadístico de Hopkins.
@@ -243,11 +243,21 @@ labs(subtitle = "Silhouette method")
 
 
 ```{r, message=FALSE,warning=FALSE}
-means <- kmeans(clusterhouse, 2, iter.max =100)
-clusterhouse$means <- means$cluster
+km<-kmeans(clusterhouse,2,iter.max =100)
+clusterhouse$grupo<-km$cluster
 ```
 
+```{r}
+km
+```
+```{r}
+km$size
+```
 
-
+```{r}
+hc<-hclust(clusterhouse_dist, method = "ward.D2") 
+plot(hc, cex=0.5, axes=FALSE) #Genera el dendograma
+rect.hclust(hc,k=2)
+```
 
 
