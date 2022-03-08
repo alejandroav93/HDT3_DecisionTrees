@@ -21,6 +21,16 @@ library(randomForest)
 library(tree)
 library(rpart.plot)
 library(car)
+library(cluster) #Para calcular la silueta
+library(e1071)#para cmeans
+library(mclust) #mixtures of gaussians
+library(fpc) #para hacer el plotcluster
+library(NbClust) #Para determinar el número de clusters óptimo
+library(factoextra) #Para hacer gráficos bonitos de clustering
+library(hopkins) #Para revisar si vale la pena hacer agrupamiento
+library(GGally) #Para hacer el conjunto de graficos
+library(FeatureImpCluster) #Para revisar la importancia de las variables en los grupos.
+library(pheatmap) #Para hacer mapa de calor
 ```
 
 Importación del set de datos a partir del .csv
@@ -122,6 +132,10 @@ Se crea un conteo de columnas y observaciones (filas) del conjunto de datos
 #ncol count -> col variable
 col <- ncol(house)
 #Print
+```
+
+
+```{r}
 cat("El número de columnas para el conjunto de datos es de :", col, "\n")
 #nrow count -> row variable
 row <- nrow(house)
@@ -181,6 +195,59 @@ División de los cuartiles en precios de venta de las casas
 ```{r}
 quantile(house$SalePric)  
 ```
+
+##---CLUSTERING DE VARIABLES---##
+Variables seleccionadas para agrupación:
+*OverallQual    
+*OverallCond      
+*GrLivArea     
+*BedroomAbvGr
+*TotRmsAbvGrd     
+*GarageCars      
+*SalePrice
+*YearBuilt
+*LotArea
+*LotFrontage        
+
+
+Se calcula el valor del estadístico de Hopkins.
+```{r calculo del estadistico de Hopkins,  message=FALSE,warning=FALSE}
+clusterhouse <- fread("./train.csv", select = c("OverallQual","OverallCond" ,"GrLivArea", "BedroomAbvGr", "TotRmsAbvGrd", "GarageCars", "SalePrice", "YearBuilt", "LotArea", "LotFrontage"))
+clusterhouse$LotFrontage[is.na(clusterhouse$LotFrontage)]<-0.0
+set.seed(123)
+clusterhouse<-clusterhouse[complete.cases("./train.csv")]
+clusterhouse<-scale(clusterhouse)
+hopkins(clusterhouse)
+```
+Dado que estadistico de Hopkings esta bastante alejado de 0.5 se puede inferir que  los datos no son aleatorios hay altas posibilidades de que sea factible el agrupamiento de las variables seleccionadas.
+
+
+```{r VAT , message=FALSE,warning=FALSE}
+clusterhouse_dist <- dist(clusterhouse)
+fviz_dist(clusterhouse_dist, show_labels = F)
+```
+Como se puede observar en la VAT sí se observan patrones por lo que es factible el agrupamiento, confirmando el valor obtenido con el estadístico de Hopkings.
+
+Se procede a realizar la prueba de codo para poder determinar un número de agrupaciones factibles.
+```{r}
+fviz_nbclust(clusterhouse, kmeans, method = "wss") +
+labs(subtitle = "Elbow method")
+```
+
+Se procede a realizar la prueba de silueta para poder comparar con el método de codo realizado con anterioridad y poder determinar un número de agrupaciones factibles.
+```{r}
+fviz_nbclust(clusterhouse, kmeans, method = "silhouette") +
+labs(subtitle = "Silhouette method")
+```
+
+
+
+```{r, message=FALSE,warning=FALSE}
+means <- kmeans(movies, 3, iter.max =100)
+movies$means <- means$cluster
+```
+
+
 
 
 
