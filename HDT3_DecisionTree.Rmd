@@ -272,13 +272,13 @@ data$SalePrice <- NULL
 trainRowsNumber <- sample(1:nrow(data), 0.7*nrow(data))
 train<-data[trainRowsNumber,]
 test<-data[-trainRowsNumber,]
-arbolModelo <- rpart(data,method = "class")
+arbolModelo <- rpart(PriceRange~.,data,method = "class")
 rpart.plot(arbolModelo)
 ```
 ```{r}
 save(train,test,arbolModelo, file = "Variables.RData")
 load("Variables.RData")
-dt_model<-rpart(train,method = "class")
+dt_model<-rpart(PriceRange~., train,method = "class")
 plot(dt_model);text(dt_model)
 prp(dt_model)
 rpart.plot(dt_model)
