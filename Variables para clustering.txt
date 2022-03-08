@@ -1,0 +1,10 @@
+OverallQual    
+OverallCond      
+GrLivArea     
+BedroomAbvGr
+TotRmsAbvGrd     
+GarageCars      
+SalePrice
+YearBuilt
+LotArea
+LotFrontage        
