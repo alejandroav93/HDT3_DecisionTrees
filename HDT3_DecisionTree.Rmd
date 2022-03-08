@@ -243,8 +243,8 @@ labs(subtitle = "Silhouette method")
 
 
 ```{r, message=FALSE,warning=FALSE}
-means <- kmeans(movies, 3, iter.max =100)
-movies$means <- means$cluster
+means <- kmeans(clusterhouse, 2, iter.max =100)
+clusterhouse$means <- means$cluster
 ```
 
 
