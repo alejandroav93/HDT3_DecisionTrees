@@ -244,10 +244,14 @@ rect.hclust(hc,k=2)
 
 ```{r}
 set.seed(123)
+#se toman las variables que se cree predicen propiamente el precio de la casa y el precio real de la casa.
+#luego se reemplaza la columna del precio de la casa por una que lo clasifica como economica, intermedio o cara dependiendo de los percentiles.
 data <- fread("./train.csv", select = c("OverallQual","OverallCond" ,"GrLivArea", "BedroomAbvGr", "TotRmsAbvGrd", "GarageCars", "SalePrice", "YearBuilt", "LotArea", "LotFrontage"))
 data <- data %>% mutate(PriceRange = if_else(quant["0%"] <= SalePrice & SalePrice < quant["25%"], "Economica", 
                                               if_else(quant["25%"] <= SalePrice & SalePrice < quant["50%"], "Intermedia", "Cara") ))
 data$SalePrice <- NULL
+
+data$LotFrontage[is.na(data$LotFrontage)]<-0.0
 
 trainRowsNumber <- sample(1:nrow(data), 0.7*nrow(data))
 train<-data[trainRowsNumber,]
@@ -266,6 +270,39 @@ rpart.plot(dt_model)
 ```
 
 ```{r}
+head(test)
+prediccion <- predict(dt_model, newdata = test)
+```
+```{r}
+#se obtiene la matriz de confusión para el árbol de clasificación
+#como se puede observar, nada el modelo tiene una Accuracy del 80% esto es muy bueno, ya que es preciso sin mostrar tendencia al overfitting.
+train$PriceRange=factor(train$PriceRange)
+test$PriceRange=factor(test$PriceRange)
+
+predicted_Price_Range<-apply(prediccion, 1, function(x) colnames(prediccion)[which.max(x)])
+test$prediccion<-predicted_Price_Range
+
+cfm<-confusionMatrix(as.factor(test$prediccion), test$PriceRange)
+cfm
+```
+```{r}
+
+ct<-trainControl(method = "cv",train, number=10, verboseIter=T)
+modelorf<-train(PriceRange~., data=train, method="rpart", trControl = ct)
+
+prediccionADVC<-predict(modelorf,newdata = test)
+test$predADVC<-prediccionADVC
+
+
+cfmCaret <- confusionMatrix(test$predADVC, test$PriceRange)
+cfmCaret
+```
+```{r}
+rpart.plot(modelorf$finalModel)
+```
+
+
+```{r}
 train$PriceRange=factor(train$PriceRange)
 test$PriceRange=factor(test$PriceRange)
 modelRandomF<-randomForest(PriceRange~.,data=train, na.action = na.exclude, method = "class")
@@ -275,3 +312,7 @@ fulltest$predRF<-PredictionRF
 cfmRandomForest <- confusionMatrix(fulltest$predRF, fulltest$PriceRange)
 cfmRandomForest
 ```
+```{r}
+plot(modelRandomF)
+```
+
